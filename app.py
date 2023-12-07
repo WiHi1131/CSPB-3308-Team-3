@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 from flask import Flask
 from flask import render_template
