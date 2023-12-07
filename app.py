@@ -14,7 +14,7 @@ def foodlookup():
 @app.route('/get_food_suggestions')
 def get_food_suggestions():
     search_term = request.args.get('term', '')  # Get the search term from the query parameter
-    conn = psycopg2.connect("your_connection_string")
+    conn = psycopg2.connect("postgres://food_db_msqq_user:96WkFN4LYyA6g0p8n9ykbw7GT0KQudsM@dpg-clok7g1oh6hc73bia110-a/food_db_msqq")
     cur = conn.cursor()
     query = "SELECT name FROM Foods WHERE name ILIKE %s LIMIT 10"
     cur.execute(query, (f'%{search_term}%',))
