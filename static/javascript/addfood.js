@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check other inputs for real numbers
         var inputs = document.querySelectorAll('.input-field');
         inputs.forEach(function(input) {
-            if (input.id !== 'foodName' && (isNaN(input.value) || input.value === '')) {
-                errorMessage += `Please enter a valid number for ${input.placeholder}.<br>`;
+            if (input.id !== 'foodName') {
+                if (input.value !== '' && isNaN(input.value)) {
+                    errorMessage += `Please enter a valid number for ${input.placeholder}.<br>`;
+                }
             }
         });
 
