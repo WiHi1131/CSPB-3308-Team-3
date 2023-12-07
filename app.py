@@ -42,60 +42,62 @@ def addfood():
                 
             # Convert empty strings to None and strings to appropriate types
             def convert_or_none(value):
+                if value.strip() == '':
+                    return None
                 try:
-                    return float(value) if value.strip() != '' else None
+                    float_value = float(value)
+                    if float_value < 0:
+                        return 'invalid'  # Reject negative numbers
+                    return float_value
                 except ValueError:
                     return 'invalid'
 
             # Validate other fields
             portion_size = convert_or_none(portion_size)
             if portion_size == 'invalid':
-                raise ValueError("Portion size must be a real number or empty")
-            
+                raise ValueError("Portion size must be a positive real number or empty")
             calories = convert_or_none(calories)
             if calories == 'invalid':
-                raise ValueError("Calories must be a real number or empty")
-                
+                raise ValueError("Calories must be a positive real number or empty")    
             total_fat = convert_or_none(total_fat)
             if total_fat == 'invalid':
-                raise ValueError("Total fat must be a real number or empty")
-                
+                raise ValueError("Total fat must be a positive real number or empty")    
             saturated_fat = convert_or_none(saturated_fat)
             if saturated_fat == 'invalid':
-                raise ValueError("Saturated fat must be a real number or empty")
+                raise ValueError("Saturated fat must be a positive real number or empty")
             trans_fat = convert_or_none(trans_fat)
             if trans_fat == 'invalid':
-                raise ValueError("Trans fat must be a real number or empty")
+                raise ValueError("Trans fat must be a positive real number or empty")
             cholesterol = convert_or_none(cholesterol)
             if cholesterol == 'invalid':
-                raise ValueError("Cholesterol must be a real number or empty")
+                raise ValueError("Cholesterol must be a positive real number or empty")
             sodium = convert_or_none(sodium)
             if sodium == 'invalid':
-                raise ValueError("Sodium must be a real number or empty")
+                raise ValueError("Sodium must be a positive real number or empty")
             total_carbohydrates = convert_or_none(total_carbohydrates)
             if total_carbohydrates == 'invalid':
-                raise ValueError("Total carbohydrates must be a real number or empty")
+                raise ValueError("Total carbohydrates must be a positive real number or empty")
             dietary_fiber = convert_or_none(dietary_fiber)
             if dietary_fiber == 'invalid':
-                raise ValueError("Dietary fiber must be a real number or empty")
+                raise ValueError("Dietary fiber must be a positive real number or empty")
             sugars = convert_or_none(sugars)
             if sugars == 'invalid':
-                raise ValueError("Sugars must be a real number or empty")
+                raise ValueError("Sugars must be a positive real number or empty")
             protein = convert_or_none(protein)
             if protein == 'invalid':
-                raise ValueError("Protein must be a real number or empty")
+                raise ValueError("Protein must be a positive real number or empty")
             vitamin_d = convert_or_none(vitamin_d)
             if vitamin_d == 'invalid':
-                raise ValueError("Vitamin_d must be a real number or empty")
+                raise ValueError("Vitamin_d must be a positive real number or empty")
             calcium = convert_or_none(calcium)
             if calcium == 'invalid':
-                raise ValueError("Calcium must be a real number or empty")
+                raise ValueError("Calcium must be a positive real number or empty")
             iron = convert_or_none(iron)
             if iron == 'invalid':
-                raise ValueError("Iron must be a real number or empty")
+                raise ValueError("Iron must be a positive real number or empty")
             potassium = convert_or_none(potassium)
             if potassium == 'invalid':
-                raise ValueError("Potassium must be a real number or empty")
+                raise ValueError("Potassium must be a positive real number or empty")
             
             # Insert into database
             conn = psycopg2.connect("postgres://food_db_msqq_user:96WkFN4LYyA6g0p8n9ykbw7GT0KQudsM@dpg-clok7g1oh6hc73bia110-a/food_db_msqq")
