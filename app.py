@@ -17,6 +17,7 @@ def addfood():
         try:
             # Extract data from form
             food_name = request.form['foodName']
+            print("Food Name:", food_name)
             portion_size = request.form['portion_size']
             calories = request.form['calories']
             total_fat = request.form['total_fat']
