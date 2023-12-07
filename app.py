@@ -2,14 +2,92 @@ import psycopg2
 
 from flask import Flask
 from flask import render_template
+from flask import request, redirect, url_for, flash
 app = Flask(__name__)
 
 @app.route('/')
 def foodlookup():
     return render_template('foodlookup.html')
 
-@app.route('/add_food')
-def addfood(): 
+@app.route('/add_food', methods=['GET', 'POST'])
+def addfood():
+    if request.method == 'POST':
+        try:
+            # Extract data from form
+            food_name = request.form['foodName']
+            portion_size = request.form['portionSize']
+            calories = request.form['calories']
+            total_fat = request.form['total_fat']
+            saturated_fat = request.form['saturated_fat']
+            trans_fat = request.form['trans_fat']
+            cholesterol = request.form['cholesterol']
+            sodium = request.form['sodium']
+            total_carbohydrates = request.form['total_carbohydrates']
+            sugars = request.form['sugars']
+            protein = request.form['protein']
+            vitamin_d = request.form['vitamin_d']
+            calcium = request.form['calcium']
+            iron = request.form['iron']
+            potassium = request.form['potassium']
+
+            # Validate data (server-side validation)
+            if not food_name:
+                raise ValueError("Must specify food name")
+            if not food_name.isalpha():
+                raise ValueError("Invalid food name")
+                
+            # Convert empty strings to None and strings to appropriate types
+            def convert_or_none(value):
+                return float(value) if value.replace('.', '', 1).isdigit() else None
+
+            # Validate other fields
+            if not convert_or_none(portion_size):
+                raise ValueError("Portion size must be a real number or empty")
+            if not convert_or_none(calories):
+                raise ValueError("Calories must be a real number or empty")
+            if not convert_or_none(total_fat):
+                raise ValueError("Total fat must be a real number or empty")
+            if not convert_or_none(saturated_fat):
+                raise ValueError("Saturated fat must be a real number or empty")
+            if not convert_or_none(trans_fat):
+                raise ValueError("Trans fat must be a real number or empty")
+            if not convert_or_none(cholesterol):
+                raise ValueError("Cholesterol must be a real number or empty")
+            if not convert_or_none(sodium):
+                raise ValueError("Sodium must be a real number or empty")
+            if not convert_or_none(total_carbohydrates):
+                raise ValueError("Total Carbohydrates must be a real number or empty")
+            if not convert_or_none(sugars):
+                raise ValueError("Sugars must be a real number or empty")
+            if not convert_or_none(protein):
+                raise ValueError("Protein must be a real number or empty")
+            if not convert_or_none(vitamin_d):
+                raise ValueError("Vitamin D must be a real number or empty")
+            if not convert_or_none(calcium):
+                raise ValueError("Calcium must be a real number or empty")
+            if not convert_or_none(iron):
+                raise ValueError("Iron must be a real number or empty")
+            if not convert_or_none(potassium):
+                raise ValueError("Potassium must be a real number or empty")
+            
+            # Insert into database
+            conn = psycopg2.connect("postgres://food_db_msqq_user:96WkFN4LYyA6g0p8n9ykbw7GT0KQudsM@dpg-clok7g1oh6hc73bia110-a/food_db_msqq")
+            cur = conn.cursor()
+            query = """
+                INSERT INTO Foods (name, portion_size, calories, total_fat, saturated_fat, trans_fat, cholesterol, sodium, total_carbohydrates, sugars, protein, vitamin_d, calcium, iron, potassium) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cur.execute(query, (food_name, portion_size, calories, total_fat, saturated_fat, trans_fat, cholesterol, sodium, total_carbohydrates, sugars, protein, vitamin_d, calcium, iron, potassium))
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            flash('Food item added successfully!')
+            return redirect(url_for('addfood'))
+        except Exception as e:
+            flash(str(e))
+            return redirect(url_for('addfood'))
+
     return render_template('addfood.html')
 
 @app.route('/db_test')
