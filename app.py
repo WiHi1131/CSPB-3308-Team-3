@@ -19,7 +19,7 @@ def create():
     cur = conn.cursor()
     cur.execute('''
         CREATE TABLE IF NOT EXISTS Foods (
-        food_id INTEGER PRIMARY KEY,
+        food_id SERIAL PRIMARY KEY,
         name TEXT NOT NULL UNIQUE,
         
         portion_size REAL,           -- Usually in grams (g)
