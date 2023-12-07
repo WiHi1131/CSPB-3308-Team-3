@@ -8,7 +8,7 @@
     <div class = "container">
         <h1>Add New Food Item</h1>
         <div id="error" style="color: red;"></div>
-        <form id="addFoodForm">
+        <form id="addFoodForm" method="post" action="/add_food">
             <input type="text" class="input-field" id="foodName" placeholder="Food Name - REQUIRED">
             <input type="text" class="input-field" id="portionSize" placeholder="Portion Size (g) - Optional">
             <input type="text" class="input-field" id="calories" placeholder="Calories (kcal) - Optional">
@@ -24,7 +24,7 @@
             <input type="text" class="input-field" id="calcium" placeholder="Calcium (mg) - Optional">
             <input type="text" class="input-field" id="iron" placeholder="Iron (mg) - Optional">
             <input type="text" class="input-field" id="potassium" placeholder="Potassium (mg) - Optional">
-            <button type="button" class="submit-button" id="addFoodButton">Add Food</button>
+            <button type="submit" class="submit-button" id="addFoodButton">Add Food</button>
         </form>
         </div>
     <script src="../static/javascript/addfood.js"></script>
