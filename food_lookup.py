@@ -28,6 +28,7 @@
 import prefix
 import os
 import json
+import psycopg2
 
 from flask import Flask, url_for
 from markupsafe import escape
