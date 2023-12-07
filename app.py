@@ -4,6 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask import request, redirect, url_for, flash
 app = Flask(__name__)
+app.secret_key = os.getenv('food_lookup_key')
 
 @app.route('/')
 def foodlookup():
