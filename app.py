@@ -3,13 +3,25 @@ import os
 
 from flask import Flask
 from flask import render_template
-from flask import request, redirect, url_for, flash
+from flask import request, redirect, url_for, flash, jsonify
 app = Flask(__name__)
 app.secret_key = os.getenv('food_lookup_key')
 
 @app.route('/')
 def foodlookup():
     return render_template('foodlookup.html')
+
+@app.route('/get_food_suggestions')
+def get_food_suggestions():
+    search_term = request.args.get('term', '')  # Get the search term from the query parameter
+    conn = psycopg2.connect("your_connection_string")
+    cur = conn.cursor()
+    query = "SELECT name FROM Foods WHERE name ILIKE %s LIMIT 10"
+    cur.execute(query, (f'%{search_term}%',))
+    suggestions = [row[0] for row in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return jsonify(suggestions)
 
 @app.route('/add_food', methods=['GET', 'POST'])
 def addfood():
