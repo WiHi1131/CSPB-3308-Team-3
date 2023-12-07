@@ -42,8 +42,10 @@ def addfood():
                 
             # Convert empty strings to None and strings to appropriate types
             def convert_or_none(value):
+                if value.strip() == '':
+                    return None
                 try:
-                    return float(value) if value.strip() != '' else None
+                    return float(value)
                 except ValueError:
                     return 'invalid'
 
