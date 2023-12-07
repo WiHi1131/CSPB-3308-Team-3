@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var searchInput = document.getElementById('searchInput');
-    var suggestionsContainer = document.getElementById('suggestions-container'); // Get the suggestions container
+    var suggestionsContainer = document.getElementById('suggestions-container');
 
     searchInput.addEventListener('input', function() {
         var searchTerm = searchInput.value;
@@ -12,15 +12,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Clear any existing suggestions
                     removeAllChildNodes(suggestionsContainer);
 
-                    // Create a new list of suggestions
-                    var suggestionList = document.createElement('ul');
-                    data.forEach(function(item) {
-                        var listItem = document.createElement('li');
-                        listItem.textContent = item;
-                        suggestionList.appendChild(listItem);
-                    });
-
-                    suggestionsContainer.appendChild(suggestionList); // Append the suggestion list to the suggestions container
+                    if (data.length > 0) {
+                        // Create a new list of suggestions
+                        var suggestionList = document.createElement('ul');
+                        data.forEach(function(item) {
+                            var listItem = document.createElement('li');
+                            listItem.textContent = item;
+                            suggestionList.appendChild(listItem);
+                        });
+                        suggestionsContainer.appendChild(suggestionList);
+                    } else {
+                        // Display a message if no suggestions are found
+                        var noResultsMsg = document.createElement('div');
+                        noResultsMsg.textContent = `No foods named '${searchTerm}' in the database`;
+                        suggestionsContainer.appendChild(noResultsMsg);
+                    }
                 })
                 .catch(error => console.error('Error:', error));
         } else {
@@ -35,4 +41,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
 
