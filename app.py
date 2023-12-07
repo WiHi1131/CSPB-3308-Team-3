@@ -9,7 +9,7 @@ def foodlookup():
     return render_template('foodlookup.html')
 
 @app.route('/add_food')
-def addfood()
+def addfood(): 
     return render_template('addfood.html')
 
 @app.route('/db_test')
