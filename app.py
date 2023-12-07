@@ -42,10 +42,8 @@ def addfood():
                 
             # Convert empty strings to None and strings to appropriate types
             def convert_or_none(value):
-                if value.strip() == '':
-                    return None
                 try:
-                    return float(value)
+                    return float(value) if value.strip() != '' else None
                 except ValueError:
                     return 'invalid'
 
@@ -53,6 +51,10 @@ def addfood():
             portion_size = convert_or_none(portion_size)
             if portion_size == 'invalid':
                 raise ValueError("Portion size must be a real number or empty")
+            
+            calories = convert_or_none(calories)
+            if calories == 'invalid':
+                raise ValueError("Calories must be a real number or empty")
                 
             total_fat = convert_or_none(total_fat)
             if total_fat == 'invalid':
