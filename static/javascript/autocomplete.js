@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var searchInput = document.getElementById('searchInput');
+    var suggestionsContainer = document.getElementById('suggestions-container'); // Get the suggestions container
 
     searchInput.addEventListener('input', function() {
         var searchTerm = searchInput.value;
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     // Clear any existing suggestions
-                    removeAllChildNodes(searchInput.nextElementSibling);
+                    removeAllChildNodes(suggestionsContainer);
 
                     // Create a new list of suggestions
                     var suggestionList = document.createElement('ul');
@@ -19,9 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         suggestionList.appendChild(listItem);
                     });
 
-                    searchInput.parentNode.appendChild(suggestionList);
+                    suggestionsContainer.appendChild(suggestionList); // Append the suggestion list to the suggestions container
                 })
                 .catch(error => console.error('Error:', error));
+        } else {
+            // Clear suggestions when there is no input
+            removeAllChildNodes(suggestionsContainer);
         }
     });
 
@@ -31,3 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
