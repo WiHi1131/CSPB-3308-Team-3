@@ -7,6 +7,16 @@
 <body>
     <div class = "container">
         <h1>Add New Food Item</h1>
+        <!-- Flash messages section -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div id="flash-messages">
+              {% for message in messages %}
+                <div class="flash-message">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
         <div id="error" style="color: red;"></div>
         <form id="addFoodForm" method="post" action="/add_food">
             <input type="text" class="input-field" id="foodName" name ="foodName" placeholder="Food Name - REQUIRED">
