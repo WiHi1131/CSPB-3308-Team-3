@@ -1,82 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Lookup</title>
-    <!-- Linking the external CSS -->
-    <link rel="stylesheet" href="static/css/foodlookup.css">
-    <!-- Adding the jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/foodlookup.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Food Lookup Container -->
-    <div class="food-lookup-container">
-        <h2>Input Food for Info</h2>
-        <input type="text" id="foodName" placeholder="Search Food by Name...">
-        <ul id="suggestions"></ul>
+    <div class="container">
+        <h1>Welcome to Food Lookup!</h1>
+
+        <h2>Search for Food</h2>
+        <input type="text" class="input-field" id="searchInput" placeholder="Search for food...">
     </div>
-    
-    <!-- New Food Input Container -->
-    <!-- New Food Input Container -->
-    <div class="food-input-container">
-        <h2>Add New Food</h2>
-        <form id="food-form">
-            <label for="newFoodName">Name:</label>
-            <input type="text" id="newFoodName" name="newFoodName">
-
-            <label for="portionSize">Portion Size:</label>
-            <input type="text" id="portionSize" name="portionSize">
-
-            <label for="calories">Calories:</label>
-            <input type="text" id="calories" name="calories">
-
-            <label for="totalFat">Total Fat:</label>
-            <input type="text" id="totalFat" name="totalFat">
-
-            <label for="saturatedFat">Saturated Fat:</label>
-            <input type="text" id="saturatedFat" name="saturatedFat">
-
-            <label for="transFat">Trans Fat:</label>
-            <input type="text" id="transFat" name="transFat">
-
-            <label for="cholesterol">Cholesterol:</label>
-            <input type="text" id="cholesterol" name="cholesterol">
-
-            <label for="sodium">Sodium:</label>
-            <input type="text" id="sodium" name="sodium">
-
-            <label for="totalCarbohydrates">Total Carbohydrates:</label>
-            <input type="text" id="totalCarbohydrates" name="totalCarbohydrates">
-
-            <label for="dietaryFiber">Dietary Fiber:</label>
-            <input type="text" id="dietaryFiber" name="dietaryFiber">
-
-            <label for="sugars">Sugars:</label>
-            <input type="text" id="sugars" name="sugars">
-
-            <label for="protein">Protein:</label>
-            <input type="text" id="protein" name="protein">
-
-            <label for="vitaminD">Vitamin D:</label>
-            <input type="text" id="vitaminD" name="vitaminD">
-
-            <label for="calcium">Calcium:</label>
-            <input type="text" id="calcium" name="calcium">
-
-            <label for="iron">Iron:</label>
-            <input type="text" id="iron" name="iron">
-
-            <label for="potassium">Potassium:</label>
-            <input type="text" id="potassium" name="potassium">
-
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-  </div>
-    <!-- Linking the external JS script. Always do this before the closing body tag for performance -->
-    <script src="./static/javascript/foodlookup.js"></script>
 </body>
 </html>
 
