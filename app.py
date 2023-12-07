@@ -1,11 +1,12 @@
 import psycopg2
 
 from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def foodlookup():
+    return render_template('foodlookup.html')
 
 @app.route('/db_test')
 def testing():
