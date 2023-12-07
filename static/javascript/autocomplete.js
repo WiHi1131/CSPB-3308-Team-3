@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         data.forEach(function(item) {
                             var listItem = document.createElement('li');
                             listItem.textContent = item;
+                            listItem.addEventListener('click', function() {
+                                fetchFoodInfo(item);
+                            });
                             suggestionList.appendChild(listItem);
                         });
                         suggestionsContainer.appendChild(suggestionList);
@@ -35,11 +38,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    function fetchFoodInfo(foodName) {
+        fetch('/get_food_info?name=' + encodeURIComponent(foodName))
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    displayFoodInfo(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayFoodInfo(info) {
+        var infoContainer = document.getElementById('food-info');
+        removeAllChildNodes(infoContainer);
+        Object.keys(info).forEach(key => {
+            var p = document.createElement('p');
+            p.textContent = `${key}: ${info[key]}`;
+            infoContainer.appendChild(p);
+        });
+    }
+
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
     }
 });
+
 
 

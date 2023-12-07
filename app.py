@@ -23,6 +23,40 @@ def get_food_suggestions():
     conn.close()
     return jsonify(suggestions)
 
+@app.route('/get_food_info')
+def get_food_info():
+    food_name = request.args.get('name', '')
+    conn = psycopg2.connect("postgres://food_db_msqq_user:96WkFN4LYyA6g0p8n9ykbw7GT0KQudsM@dpg-clok7g1oh6hc73bia110-a/food_db_msqq")
+    cur = conn.cursor()
+    query = "SELECT * FROM Foods WHERE name = %s"
+    cur.execute(query, (food_name,))
+    food_info = cur.fetchone()
+    cur.close()
+    conn.close()
+    if food_info:
+        # Assuming the columns follow the order as in your database
+        info_dict = {
+            "name": food_info[1],
+            "portion_size": food_info[2],
+            "calories": food_info[3],
+            "total_fat": food_info[4],
+            "saturated_fat": food_info[5],
+            "trans_fat": food_info[6],
+            "cholesterol": food_info[7],
+            "sodium": food_info[8],
+            "total_carbohydrates": food_info[9],
+            "dietary_fiber": food_info[10],
+            "sugars": food_info[11],
+            "protein": food_info[12],
+            "vitamin_d": food_info[13],
+            "calcium": food_info[14],
+            "iron": food_info[15],
+            "potassium": food_info[16]
+        }
+        return jsonify(info_dict)
+    else:
+        return jsonify({"error": "Food not found"}), 404
+
 @app.route('/add_food', methods=['GET', 'POST'])
 def addfood():
     if request.method == 'POST':
