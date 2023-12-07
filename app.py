@@ -26,6 +26,7 @@ def addfood():
             cholesterol = request.form['cholesterol']
             sodium = request.form['sodium']
             total_carbohydrates = request.form['total_carbohydrates']
+            dietary_fiber = request.form['dietary_fiber']
             sugars = request.form['sugars']
             protein = request.form['protein']
             vitamin_d = request.form['vitamin_d']
@@ -36,49 +37,68 @@ def addfood():
             # Validate data (server-side validation)
             if not food_name:
                 raise ValueError("Must specify food name")
-            if not food_name.isalpha():
-                raise ValueError("Invalid food name")
+            if not food_name.replace(',', '').replace(' ', '').isalpha():
+                raise ValueError("Invalid food name: Food name can only contain letters, spaces, and commas")
                 
             # Convert empty strings to None and strings to appropriate types
             def convert_or_none(value):
-                return float(value) if value.replace('.', '', 1).isdigit() else None
+                try:
+                    return float(value) if value.strip() != '' else None
+                except ValueError:
+                    return 'invalid'
 
             # Validate other fields
-            if not convert_or_none(portion_size):
+            portion_size = convert_or_none(portion_size)
+            if portion_size == 'invalid':
                 raise ValueError("Portion size must be a real number or empty")
-            if not convert_or_none(calories):
-                raise ValueError("Calories must be a real number or empty")
-            if not convert_or_none(total_fat):
+                
+            total_fat = convert_or_none(total_fat)
+            if total_fat == 'invalid':
                 raise ValueError("Total fat must be a real number or empty")
-            if not convert_or_none(saturated_fat):
+                
+            saturated_fat = convert_or_none(saturated_fat)
+            if saturated_fat == 'invalid':
                 raise ValueError("Saturated fat must be a real number or empty")
-            if not convert_or_none(trans_fat):
+            trans_fat = convert_or_none(trans_fat)
+            if trans_fat == 'invalid':
                 raise ValueError("Trans fat must be a real number or empty")
-            if not convert_or_none(cholesterol):
+            cholesterol = convert_or_none(cholesterol)
+            if cholesterol == 'invalid':
                 raise ValueError("Cholesterol must be a real number or empty")
-            if not convert_or_none(sodium):
+            sodium = convert_or_none(sodium)
+            if sodium == 'invalid':
                 raise ValueError("Sodium must be a real number or empty")
-            if not convert_or_none(total_carbohydrates):
-                raise ValueError("Total Carbohydrates must be a real number or empty")
-            if not convert_or_none(sugars):
+            total_carbohydrates = convert_or_none(total_carbohydrates)
+            if total_carbohydrates == 'invalid':
+                raise ValueError("Total carbohydrates must be a real number or empty")
+            dietary_fiber = convert_or_none(dietary_fiber)
+            if dietary_fiber == 'invalid':
+                raise ValueError("Dietary fiber must be a real number or empty")
+            sugars = convert_or_none(sugars)
+            if sugars == 'invalid':
                 raise ValueError("Sugars must be a real number or empty")
-            if not convert_or_none(protein):
+            protein = convert_or_none(protein)
+            if protein == 'invalid':
                 raise ValueError("Protein must be a real number or empty")
-            if not convert_or_none(vitamin_d):
-                raise ValueError("Vitamin D must be a real number or empty")
-            if not convert_or_none(calcium):
+            vitamin_d = convert_or_none(vitamin_d)
+            if vitamin_d == 'invalid':
+                raise ValueError("Vitamin_d must be a real number or empty")
+            calcium = convert_or_none(calcium)
+            if calcium == 'invalid':
                 raise ValueError("Calcium must be a real number or empty")
-            if not convert_or_none(iron):
+            iron = convert_or_none(iron)
+            if iron == 'invalid':
                 raise ValueError("Iron must be a real number or empty")
-            if not convert_or_none(potassium):
+            potassium = convert_or_none(potassium)
+            if potassium == 'invalid':
                 raise ValueError("Potassium must be a real number or empty")
             
             # Insert into database
             conn = psycopg2.connect("postgres://food_db_msqq_user:96WkFN4LYyA6g0p8n9ykbw7GT0KQudsM@dpg-clok7g1oh6hc73bia110-a/food_db_msqq")
             cur = conn.cursor()
             query = """
-                INSERT INTO Foods (name, portion_size, calories, total_fat, saturated_fat, trans_fat, cholesterol, sodium, total_carbohydrates, sugars, protein, vitamin_d, calcium, iron, potassium) 
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO Foods (name, portion_size, calories, total_fat, saturated_fat, trans_fat, cholesterol, sodium, total_carbohydrates, dietary_fiber, sugars, protein, vitamin_d, calcium, iron, potassium) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             cur.execute(query, (food_name, portion_size, calories, total_fat, saturated_fat, trans_fat, cholesterol, sodium, total_carbohydrates, sugars, protein, vitamin_d, calcium, iron, potassium))
             conn.commit()
