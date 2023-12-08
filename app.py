@@ -34,24 +34,24 @@ def get_food_info():
     cur.close()
     conn.close()
     if food_info:
-        # Assuming the columns follow the order as in your database
+        
         info_dict = {
             "name": food_info[1],
-            "portion_size": food_info[2],
-            "calories": food_info[3],
-            "total_fat": food_info[4],
-            "saturated_fat": food_info[5],
-            "trans_fat": food_info[6],
-            "cholesterol": food_info[7],
-            "sodium": food_info[8],
-            "total_carbohydrates": food_info[9],
-            "dietary_fiber": food_info[10],
-            "sugars": food_info[11],
-            "protein": food_info[12],
-            "vitamin_d": food_info[13],
-            "calcium": food_info[14],
-            "iron": food_info[15],
-            "potassium": food_info[16]
+            "portion_size (grams)": food_info[2],
+            "calories (kcals)": food_info[3],
+            "total_fat (g)": food_info[4],
+            "saturated_fat (g)": food_info[5],
+            "trans_fat (g)": food_info[6],
+            "cholesterol (mg)": food_info[7],
+            "sodium (mg)": food_info[8],
+            "total_carbohydrates (g)": food_info[9],
+            "dietary_fiber (g)": food_info[10],
+            "sugars (g)": food_info[11],
+            "protein (g)": food_info[12],
+            "vitamin_d (µg)": food_info[13],
+            "calcium (mg)": food_info[14],
+            "iron (mg)": food_info[15],
+            "potassium (mg)": food_info[16]
         }
         return jsonify(info_dict)
     else:
