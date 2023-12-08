@@ -44,3 +44,16 @@ body {
 #food-info p {
     margin: 5px 0;
 }
+
+.add-food-link {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.add-food-link:hover {
+    background-color: #45a049;
+}
